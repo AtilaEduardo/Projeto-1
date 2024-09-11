@@ -1,0 +1,118 @@
+/* Estilo geral */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  /* Cabeçalho */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .logo img {
+    height: 50px;
+  }
+  
+  .nav-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .nav-menu ul li a:hover {
+    color: #007BFF;
+  }
+  
+  /* Frase de destaque */
+  .highlight {
+    text-align: center;
+    padding: 40px 0;
+    background-color: #eaeaea;
+  }
+  
+  .highlight h1 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  /* Seção de produtos */
+  .products-section {
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .products-section h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  /* Paginação */
+  .pagination {
+    margin-bottom: 20px;
+  }
+  
+  .pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .pagination a:hover {
+    color: #007BFF;
+  }
+  
+  .pagination span {
+    color: #999;
+  }
+  
+  /* Grid de produtos */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-image {
+    height: 150px;
+    background-color: #f0f0f0;
+    margin-bottom: 20px;
+  }
+  
+  .product-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .product-info p {
+    margin: 5px 0 0;
+    color: #666;
+  }
+  

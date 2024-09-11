@@ -12,7 +12,7 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
 // Receber resposta do backend
 ipcRenderer.on('login-reply', (event, response) => {
   if (response.success) {
-    window.location = '../home/home.html';  // Redirecionar para a página principal (produtos)
+    window.location = '../home/home.html';  // Redirecionar para a página principal (home)
   } else {
     alert('Erro: ' + response.error);  // Exibir mensagem de erro
   }

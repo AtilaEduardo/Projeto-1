@@ -28,7 +28,7 @@ document.getElementById('cadastro-form').addEventListener('submit', (e) => {
   }
 
   // Validação de CPF (simples)
-  if (cpf.length !== 11 || !validarCPF(cpf)) {
+  if (!validarCPF(cpf)) {
     alert('O CPF é inválido.');
     return;
   }

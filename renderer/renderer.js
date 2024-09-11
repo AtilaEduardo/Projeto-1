@@ -1,6 +1,6 @@
 const { ipcRenderer } = require('electron');
 
-// Obter lista de produtos
+// Obtem lista de produtos
 ipcRenderer.send('get-produtos');
 
 ipcRenderer.on('get-produtos-reply', (event, produtos) => {
@@ -12,7 +12,7 @@ ipcRenderer.on('get-produtos-reply', (event, produtos) => {
   });
 });
 
-// Adicionar novo produto
+// Adiciona novo produto
 document.getElementById('produto-form').addEventListener('submit', (e) => {
   e.preventDefault();
   
@@ -48,13 +48,13 @@ ipcMain.on('get-produtos', (event) => {
 ipcMain.on('login', (event, credenciais) => {
   const { usuario, senha } = credenciais;
 
-  // Verificar se os campos estão preenchidos
+  // Verifica se os campos estão preenchidos
   if (!usuario || !senha) {
     event.reply('login-reply', { success: false, error: 'Usuário e senha são obrigatórios!' });
     return;
   }
 
-  // Verificar o usuário no banco de dados
+  // Verifica o usuário no banco de dados
   db.get('SELECT * FROM usuario WHERE nome_usuario = ?', [usuario], (err, row) => {
     if (err) {
       event.reply('login-reply', { success: false, error: 'Erro ao verificar usuário no banco de dados.' });
@@ -101,7 +101,7 @@ ipcMain.on('cadastro', (event, novoUsuario) => {
     return;
   }
 
-  // Verificar se o nome de usuário já existe no banco de dados
+  // Verifica se o nome de usuário já existe no banco de dados
   db.get('SELECT * FROM usuario WHERE nome_usuario = ?', [usuario], (err, row) => {
     if (err) {
       event.reply('cadastro-reply', { success: false, error: 'Erro ao verificar usuário no banco de dados.' });
@@ -128,7 +128,7 @@ ipcMain.on('cadastro', (event, novoUsuario) => {
       if (err) {
         event.reply('recuperar-senha-reply', { success: false, error: err.message });
       } else if (row) {
-        // Aqui você pode implementar uma lógica para enviar um e-mail real
+        
         event.reply('recuperar-senha-reply', { success: true });
       } else {
         event.reply('recuperar-senha-reply', { success: false, error: 'E-mail não encontrado.' });
@@ -139,7 +139,7 @@ ipcMain.on('cadastro', (event, novoUsuario) => {
   ipcMain.on('add-produto', (event, produto) => {
     const { nome, descricao, preco, estoque, usuario_idusuario } = produto;
   
-    // Verificar se todos os campos estão preenchidos
+    // Verifica se todos os campos estão preenchidos
     if (!nome || !descricao || !preco || !estoque || !usuario_idusuario) {
       event.reply('add-produto-reply', { error: 'Todos os campos são obrigatórios!' });
       return;
@@ -160,16 +160,16 @@ ipcMain.on('cadastro', (event, novoUsuario) => {
   });
   
 
-// Receber resposta do backend
+// Recebe resposta do backend
 ipcRenderer.on('login-reply', (event, response) => {
   if (response.success) {
-    window.location = '../home/home.html';  // Redirecionar para a página principal (produtos)
+    window.location = '../home/home.html';  // Redirecionar para a página principal (home)
   } else {
     alert('Usuário ou senha inválidos!');
   }
 });
 
-// Buscar produtos do banco de dados
+// Busca produtos do banco de dados
 ipcMain.on('get-produtos', (event) => {
   db.all('SELECT * FROM produto', (err, rows) => {
     if (err) {

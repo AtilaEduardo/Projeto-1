@@ -14,8 +14,8 @@ function createWindow() {
     }
   });
 
-  // Corrigir o caminho para o arquivo login.html
-  mainWindow.loadFile(path.join(__dirname, 'renderer', 'login', 'login.html'));
+  // Corrigir o caminho para o arquivo home.html
+  mainWindow.loadFile(path.join(__dirname, 'renderer', 'login', 'login.html')); // trocar para home
 
   mainWindow.on('closed', () => {
     mainWindow = null;

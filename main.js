@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const Produto = require('./models/Produto'); // Corrigir o caminho para seu Model
 
 let mainWindow;
 
@@ -8,30 +9,27 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false, // Certifique-se que esteja desativado o isolamento
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 
-  // Corrigir o caminho para o arquivo login.html
-  mainWindow.loadFile(path.join(__dirname, 'renderer', 'login', 'login.html'));
-
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
+  mainWindow.loadFile(path.join(__dirname, 'views', 'Home', 'home.html'));
 }
 
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+// Lida com paginação de produtos
+ipcMain.on('get-produtos', (event, page) => {
+  const itemsPerPage = 3; // Define quantos itens por página
+  Produto.getProductsByPage(page, itemsPerPage)
+    .then(produtos => {
+      event.reply('get-produtos-reply', produtos);
+    })
+    .catch(error => {
+      event.reply('get-produtos-reply', { error: 'Erro ao obter produtos' });
+    });
 });
 
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
+app.whenReady().then(createWindow);
+app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });
+app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });

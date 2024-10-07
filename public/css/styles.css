@@ -1,0 +1,161 @@
+/* Estilo básico para o cabeçalho */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #6a0dad, #9370db);
+  padding: 10px 20px;
+  color: white;
+}
+
+/* Estilo para o logo */
+.logo img {
+  max-width: 120px;
+  height: auto;
+}
+
+/* Estilo para o menu de navegação */
+.nav-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+.nav-menu ul li {
+  display: inline-block;
+}
+
+.nav-menu ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 8px 14px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.nav-menu ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Ajuste geral para o layout */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+  overflow-x: hidden;
+}
+
+/* Centralizar o conteúdo principal */
+.highlight {
+  text-align: center;
+  margin: 20px auto;
+  font-size: 28px;
+  color: #333;
+}
+
+/* Estilo para as imagens laterais */
+.interactive-images {
+  position: absolute;
+  top: 450px;
+  /* Alinha as imagens laterais na altura dos produtos */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.image-left,
+.image-right {
+  width: 180px;
+  pointer-events: auto;
+}
+
+.image-left {
+  left: 50px;
+  /* Ajusta a imagem mais para dentro */
+}
+
+.image-right {
+  right: 50px;
+  /* Ajusta a imagem mais para dentro */
+}
+
+.image-left img,
+.image-right img {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.image-left img:hover,
+.image-right img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajuste do grid de produtos */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-items: center;
+  padding: 0 20px;
+  margin-top: 20px;
+}
+
+.product-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 250px;
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  height: 140px;
+  background-color: #eee;
+  margin-bottom: 10px;
+  background-size: cover;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 15px auto;
+}
+
+.pagination a,
+.pagination button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.pagination a:hover,
+.pagination button:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination a.active {
+  background-color: #9370db;
+  color: white;
+}

@@ -27,11 +27,8 @@ document.getElementById('cadastro-form').addEventListener('submit', (e) => {
     return;
   }
 
-  // Remover a máscara do CPF antes de validar
-  cpf = cpf.replace(/\D/g, '');  // Remove qualquer caractere que não seja número
-
   // Validação de CPF (simples)
-  if (cpf.length !== 11 || !validarCPF(cpf)) {
+  if (!validarCPF(cpf)) {
     alert('O CPF é inválido.');
     return;
   }

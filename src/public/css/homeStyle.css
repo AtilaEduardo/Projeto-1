@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #181818;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    height: 100%;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #1f1f1f;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #b8b8b8;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.active {
+    background-color: #444;
+}
+
+.login-area {
+    background-color: #222;
+    padding: 10px 15px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.login-area img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.login-area button {
+    background-color: #ff0048;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.content h1 {
+    color: #fff;
+}
+
+.content p {
+    color: #b8b8b8;
+}
+
+/* Estilo do cabeçalho */
+.header {
+    padding: 10px;
+    background-color: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+/* Logo e título alinhados no cabeçalho */
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-left img {
+    width: 60px; /* Tamanho ajustado */
+    height: 60px; /* Tamanho ajustado */
+    margin-right: 10px;
+}
+
+.header-left h2 {
+    margin: 0;
+    font-weight: bold;
+}

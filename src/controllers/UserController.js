@@ -1,5 +1,5 @@
+const User = require('../models/User');
 const bcrypt = require('bcrypt');
-const db = require('../database/database');  // Ajuste do caminho se necessário
 
 class UserController {
   static async createUser(req, res) {
@@ -16,49 +16,86 @@ class UserController {
       cep,
       city,
       uf,
-      passwordSecurity
+      passwordSecurity,
+      isAdm
     } = req.body;
 
     try {
-      const hashedPassword = await bcrypt.hash(password, 10); // Hash da senha principal
-      const hashedPasswordS = await bcrypt.hash(passwordSecurity, 10); // Hash da senha de segurança
+      const user = await User.create({
+        nameUser,
+        password,
+        fullName,
+        email,
+        telephone,
+        cpf,
+        datebirth,
+        address,
+        neighborhood,
+        cep,
+        city,
+        uf,
+        passwordSecurity,
+        isAdm
+      });
 
-      db.run(
-        `INSERT INTO users (nameUser, password, fullName, email, telephone, cpf, datebirth, address, neighborhood, cep, city, uf, passwordSecurity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [nameUser, hashedPassword, fullName, email, telephone, datebirth, cpf, address, neighborhood, cep, city, uf, hashedPasswordS],
-        function (err) {
-          if (err) {
-            return res.status(500).send({ success: false, message: 'Erro ao criar o usuário.' });
-          }
-          res.send({ success: true, message: 'Usuário criado com sucesso!' });
-        }
-      );
+      res.send({ success: true, message: 'Usuário criado com sucesso!', userId: user.id });
     } catch (error) {
+      console.error('Erro ao criar o usuário:', error);
       res.status(500).send({ success: false, message: 'Erro ao criar o usuário.' });
     }
   }
 
-  static login(req, res) {
+  static async login(req, res) {
     const { nameUser, password } = req.body;
 
-    db.get(`SELECT * FROM users WHERE nameUser = ?`, [nameUser], async (err, user) => {
-      if (err || !user) {
-        return res.status(400).send({ success: false, message: 'Usuário não encontrado.' });
-      }
+    try {
+        const user = await User.findByUsername(nameUser);
 
-      try {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-          return res.status(401).send({ success: false, message: 'Senha incorreta.' });
+            return res.status(401).send({ success: false, message: 'Senha incorreta.' });
         }
 
-        // Armazena o userId na sessão após o login bem-sucedido
+        // Atribui o userId à sessão
         req.session.userId = user.id;
-        res.send({ success: true, message: 'Login bem-sucedido.' });
-      } catch (error) {
+
+        res.send({ success: true, message: 'Login bem-sucedido.', isAdm: user.isAdm });
+    } catch (error) {
+        console.error('Erro ao realizar login:', error);
         res.status(500).send({ success: false, message: 'Erro ao processar o login.' });
-      }
-    });
+    }
+}
+
+  static async updateUser(req, res) {
+    const { id } = req.params;
+    const {
+      nameUser,
+      telephone,
+      address,
+      neighborhood,
+      cep,
+      city,
+      uf,
+      password
+    } = req.body;
+
+    try {
+      await User.updateUser(id, {
+        nameUser,
+        telephone,
+        address,
+        neighborhood,
+        cep,
+        city,
+        uf,
+        password
+      });
+
+      res.send({ success: true, message: 'Usuário atualizado com sucesso!' });
+    } catch (error) {
+      console.error('Erro ao atualizar o usuário:', error);
+      res.status(500).send({ success: false, message: 'Erro ao atualizar o usuário.' });
+    }
   }
 }
 

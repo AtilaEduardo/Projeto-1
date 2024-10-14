@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,48 +8,19 @@
     <link rel="stylesheet" href="../public/css/loginStyle.css">
 
 </head>
+
 <body>
 
-<div class="login-container">
-    <h1>Login</h1>
-    <form id="login-form">
-        <input type="text" id="nameUser" placeholder="Nome de Usuário" required>
-        <input type="password" id="password" placeholder="Senha" required>
-        <button type="submit">Entrar</button>
-    </form>
-    <p>Não tem uma conta? <a href="RegisterUser.html">Cadastre-se aqui</a></p>
-</div>
-
-<script>
-    const form = document.getElementById('login-form');
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const nameUser = document.getElementById('nameUser').value;
-        const password = document.getElementById('password').value;
-
-        try {
-            const response = await fetch('http://localhost:3001/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ nameUser, password }),
-            });
-
-            const result = await response.json();
-            if (result.success) {
-                alert('Login bem-sucedido!');
-                window.location.href = 'home.html';
-            } else {
-                alert('Login inválido: ' + result.message);
-            }
-        } catch (error) {
-            console.error('Erro:', error);
-            alert('Erro na conexão com o servidor.');
-        }
-    });
-</script>
-
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="login-form">
+            <input type="text" id="nameUser" placeholder="Nome de Usuário" required>
+            <input type="password" id="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p>Não tem uma conta? <a href="RegisterUser.html">Cadastre-se aqui</a></p>
+    </div>
+    <script src="../public/js/loginScript.js"></script>
 </body>
+
 </html>

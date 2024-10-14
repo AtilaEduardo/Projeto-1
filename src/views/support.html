@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Suporte</title>
+    <link rel="stylesheet" href="../public/css/supportStyle.css">
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <img src="../../assets/logo.png" alt="Logo">
+            <h2>Suporte ao Cliente</h2>
+        </div>
+        <div class="login-area">
+            <a href="login.html">
+                <button>Sair</button>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="main-container">
+        <div class="sidebar">
+            <a href="home.html">Página Inicial</a>
+            <a href="profileUser.html">Perfil</a>
+            <a class="active" href="support.html">Suporte</a>
+            <a href="login.html">Sair</a>
+        </div>
+
+        <div class="content">
+            <div class="form-container">
+                <h2>Solicitação de Suporte</h2>
+                <form id="supportForm">
+                    <label for="userName">Nome:</label>
+                    <input type="text" id="userName" name="userName" placeholder="Digite seu nome completo" required>
+
+                    <label for="userEmail">Email:</label>
+                    <input type="email" id="userEmail" name="userEmail" placeholder="Digite seu email" required>
+
+                    <label for="supportType">Tipo de Suporte:</label>
+                    <select id="supportType" name="supportType" required>
+                        <option value="technical">Suporte Técnico</option>
+                        <option value="billing">Suporte de Pagamento</option>
+                        <option value="general">Suporte Geral</option>
+                    </select>
+
+                    <label for="description">Descrição:</label>
+                    <textarea id="description" name="description" rows="5" placeholder="Descreva o problema" required></textarea>
+
+                    <button type="submit">Enviar Solicitação</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../public/js/supportScript.js"></script>
+</body>
+</html>

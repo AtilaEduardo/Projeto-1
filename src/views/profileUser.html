@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="../public/css/profileUserStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Minha Loja</h1>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="sales.html">Vendas</a></li>
+                <li><a href="login.html">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="cadastrar-produto">
+            <h2>Cadastrar Produto</h2>
+            <div>
+                <form id="productForm">
+                    <label for="name">Nome do Produto:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="description">Descrição:</label>
+                    <textarea id="description" name="description" required></textarea>
+
+                    <label for="price">Preço:</label>
+                    <input type="number" id="price" name="price" required>
+
+                    <label for="amount">Quantidade:</label>
+                    <input type="number" id="amount" name="amount" required>
+
+                    <label for="category">Categoria:</label>
+                    <select id="category" name="category" required>
+                        <option value="boosterS">Booster Simples</option>
+                        <option value="tripleP">Triple Pack</option>
+                        <option value="quadP">Quad Pack</option>
+                        <option value="boosterB">Booster Box</option>
+                    </select>
+
+                    <label for="image">Imagem:</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+
+                    <label for="offers">Ofertas:</label>
+                    <input type="checkbox" id="offers" name="offers">
+
+                    <label for="coupons">Cupons:</label>
+                    <input type="checkbox" id="coupons" name="coupons">
+
+                    <button type="submit">Cadastrar Produto</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="editar-produto">
+            <h2>Editar Produto</h2>
+
+            <div id="productList">
+
+                <div class="product-item">
+                    <p>Produto 1 - Categoria X</p>
+                    <button class="edit-button">Editar</button>
+                    <button class="delete-button">Excluir</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="vendas">
+            <h2>Relatórios de Vendas</h2>
+            <div>
+                <canvas id="dailySalesChart"></canvas>
+                <canvas id="monthlySalesChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script src="../public/js/profileUserScript.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Suporte - Admin</title>
+    <link rel="stylesheet" href="../public/css/homeStyle.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div class="header-left">
+            <img src="../../assets/logo.png" alt="Logo">
+            <h2>Admin - Suporte</h2>
+        </div>
+        <div class="login-area">
+            <img src="https://fastly.picsum.photos/id/111/4400/2656.jpg?hmac=leq8lj40D6cqFq5M_NLXkMYtV-30TtOOnzklhjPaAAQ" alt="Avatar">
+            <a href="login.html">
+                <button>Sair</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Estrutura principal -->
+    <div class="main-container">
+        <div class="sidebar">
+            <a href="home.html">Página Inicial</a>
+            <a class="active" href="support_admin.html">Suporte</a>
+            <a href="profileUser.html">Perfil</a>
+            <a href="login.html">Sair</a>
+        </div>
+
+        <div class="content">
+            <h1>Solicitações de Suporte</h1>
+            <table id="supportRequestsTable">
+                <thead>
+                    <tr>
+                        <th>Usuário</th>
+                        <th>Email</th>
+                        <th>Tipo de Suporte</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+<script src="../public/js/support_AdminScript.js"></script>
+</body>
+</html>

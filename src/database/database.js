@@ -33,6 +33,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
         city TEXT NOT NULL,
         uf TEXT NOT NULL,
         passwordSecurity TEXT NOT NULL,
+        isAdm BOOLEAN DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `, (err) => {
@@ -43,7 +44,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
       }
     });
 
-    // Criando tabela de produtos com as flags de ofertas e cupons
+    // Criando tabela de produtos
     db.run(`
       CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,17 +54,34 @@ const db = new sqlite3.Database(dbPath, (err) => {
         amount INT NOT NULL,
         category TEXT NOT NULL,
         image TEXT,
-        user_id INTEGER,
-        offers BOOLEAN DEFAULT 0,  -- Adicionando flag para ofertas
-        coupons BOOLEAN DEFAULT 0, -- Adicionando flag para cupons
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        offers BOOLEAN DEFAULT 0,
+        coupons BOOLEAN DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `, (err) => {
       if (err) {
         console.error('Erro ao criar tabela de produtos:', err.message);
       } else {
         console.log('Tabela de produtos criada ou já existente.');
+      }
+    });
+
+    // Criando tabela de suporte
+    db.run(`
+      CREATE TABLE IF NOT EXISTS support_requests (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_name TEXT NOT NULL,
+        user_email TEXT NOT NULL,
+        support_type TEXT NOT NULL,
+        description TEXT NOT NULL,
+        status TEXT DEFAULT 'open',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `, (err) => {
+      if (err) {
+        console.error('Erro ao criar tabela de solicitações de suporte:', err.message);
+      } else {
+        console.log('Tabela de suporte criada ou já existente.');
       }
     });
   }

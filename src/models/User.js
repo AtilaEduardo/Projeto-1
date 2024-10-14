@@ -1,34 +1,102 @@
-const knex = require('knex')(require('../knexfile').development);
 const bcrypt = require('bcrypt');
+const db = require('../database/database');
 
 class User {
+  // Método para criar um novo usuário
   static async create(data) {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-    const hashedPasswordS = await bcrypt.hash(data.password_security, 10);
-    return knex('users').insert({
-      nameUser: data.nameUser,
-      password: hashedPassword,
-      fullName: data.fullName,
-      email: data.email,
-      date_birth: data.date_birth,
-      cpf: data.cpf,
-      address: data.address,
-      neighborhood: data.neighborhood,
-      cep: data.cep,
-      city: data.city,
-      uf: data.uf,
-      password_security: hashedPasswordS,
-      is_admin: data.is_admin ? 1 : 0
+    try {
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+      const hashedPasswordS = await bcrypt.hash(data.passwordSecurity, 10);
+
+      return new Promise((resolve, reject) => {
+        db.run(
+          `INSERT INTO users (nameUser, password, fullName, email, telephone, cpf, datebirth, address, neighborhood, cep, city, uf, passwordSecurity, isAdm)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          [
+            data.nameUser,
+            hashedPassword,
+            data.fullName,
+            data.email,
+            data.telephone,
+            data.cpf,
+            data.datebirth,
+            data.address,
+            data.neighborhood,
+            data.cep,
+            data.city,
+            data.uf,
+            hashedPasswordS,
+            data.isAdm ? 1 : 0
+          ],
+          function (err) {
+            if (err) {
+              return reject(err);
+            }
+            resolve({ success: true, id: this.lastID });
+          }
+        );
+      });
+    } catch (error) {
+      throw new Error('Erro ao criar o usuário: ' + error.message);
+    }
+  }
+
+  // Método para buscar um usuário por nome de usuário
+  static findByUsername(nameUser) {
+    return new Promise((resolve, reject) => {
+      db.get(`SELECT * FROM users WHERE nameUser = ?`, [nameUser], (err, user) => {
+        if (err || !user) {
+          return reject('Usuário não encontrado.');
+        }
+        resolve(user);
+      });
     });
   }
 
-  static async findByEmail(nameUser) {
-    return knex('users').where({ nameUser }).first();
-  }
+  // Método para atualizar os campos permitidos do usuário, incluindo a senha
+  static async updateUser(id, data) {
+    try {
+      const hashedPassword = data.password ? await bcrypt.hash(data.password, 10) : null;
 
-  static async updatePassword(id, newPassword) {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    return knex('users').where({ id }).update({ password: hashedPassword });
+      return new Promise((resolve, reject) => {
+        let query = `
+              UPDATE users SET
+              nameUser = ?,
+              telephone = ?,
+              address = ?,
+              neighborhood = ?,
+              cep = ?,
+              city = ?,
+              uf = ?
+            `;
+        const params = [
+          data.nameUser,
+          data.telephone,
+          data.address,
+          data.neighborhood,
+          data.cep,
+          data.city,
+          data.uf
+        ];
+
+        if (hashedPassword) {
+          query += `, password = ?`;
+          params.push(hashedPassword);
+        }
+
+        query += ` WHERE id = ?`;
+        params.push(id);
+
+        db.run(query, params, function (err) {
+          if (err) {
+            return reject(err);
+          }
+          resolve({ success: true });
+        });
+      });
+    } catch (error) {
+      throw new Error('Erro ao atualizar o usuário: ' + error.message);
+    }
   }
 }
 

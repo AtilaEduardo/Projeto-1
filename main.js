@@ -12,7 +12,6 @@ function createWindow() {
     }
   });
 
-  // Carrega o arquivo login.html a partir da pasta views
   mainWindow.loadFile(path.join(__dirname, 'src', 'views', 'home.html'));
 }
 
